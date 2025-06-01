@@ -1,0 +1,58 @@
+---
+import Layout from "../Layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Footer from "../components/Footer.astro";
+import Tecnology from "../components/Tecnology.astro";
+import "../styles/global.css";
+---
+<Layout>
+    <h2 class="text-center mt-[1rem] text-[2rem]">Proyectos</h2>
+    <section class="grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-[1rem] p-[1rem]">     
+        <ProjectCard
+        title="Chat en tiempo real (Prototipo)"
+        description="un prototipo de una aplicacion de chat en tiempo real, una manera de visualizar como quedaria un chat en tiempo real que puede mejorarse para crear uno real donde se puedan mandar y recibir mensajes"
+        image="/src/images/PROJECT-CHAT.jpg"
+        alt="chat"
+        link="https://joelitorepos.github.io/Chat-realtime/"
+        />
+        <ProjectCard
+            title="Programa de calculo"
+            description="Programa para automatizacion de de un calculo relacionado con ventas"
+            image="/src/images/PROJECT-PROYECCION.jpg"
+            alt="peliculas"
+            link="https://joelitorepos.github.io/proyeccion/"
+        />
+        <ProjectCard
+            title="Curso para aprender a crear una API"
+            description="un curso donde enseño lo necesario de JavaScript para poder crear una API con node.js y express"
+            image="/src/images/PROJECT-CURSO.jpg"
+            alt="curso-API"
+            link="https://joelitorepos.github.io/curso-para-API/"
+        />
+        <ProjectCard
+            title="Portafolio personal"
+            description="portafolio para mostrar proyectos y puedan conocer mejor mis habilidades"
+            image="/src/images/PROJECT-PORTFOLIO.jpg"
+            alt="portafolio"
+            link="https://joelitorepos.github.io/portafolio/"
+        />
+    </section>
+    <section class="flex w-full h-[10rem] justify-start">
+        <div class="h-[10rem]">
+            <Tecnology
+                image="/src/images/html.webp"
+                alt="html icon"
+                width="10rem"
+            />
+        </div>
+        <div class="">
+            <Tecnology
+                image="/src/images/css-icon.webp"
+                alt="css icon"
+                width="20rem"
+            />
+        </div>
+    </section>
+    <div class="h-[100dvh]"></div>
+    <Footer></Footer>
+</Layout>

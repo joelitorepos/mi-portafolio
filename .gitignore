@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+dist/
+.cache/
+
+# Astro
+*.astro/types.d.ts
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Optional: local preview output
+output/
+
+# Tailwind JIT cache
+.tailwind/
+
+# Optional: Astro telemetry
+astro.config.mjs.telemetry.json

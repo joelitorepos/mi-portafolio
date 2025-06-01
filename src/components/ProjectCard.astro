@@ -1,0 +1,25 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    alt: string;
+    link: string;
+}
+
+const { title,description,image,alt,link } = Astro.props as Props;
+---
+
+<div class="inline-flex flex-col items-center justify-start bg-gray-100 rounded-lg shadow-md w-[clamp(15rem,100%,100%)] text-gray-950 mx-auto bg-gray-900 overflow-hidden">
+    <div class="relative h-[7rem] overflow-hidden min-w-[100%]">
+        <a href={ link } class="outline outline-1 absolute top-1/2 left-1/2 transform-[translate(-50%,-40%)] w-[clamp(10rem,100%,100%)] hover:opacity-[0.9] hover:w-[calc(100%_+_2rem)] hover:-rotate-1 transition-all">
+            <img src={ image } alt={ alt } class="w-[40rem]">
+        </a>
+    </div>
+    <div class="min-h-[10rem] p-[.5rem]">
+        <h2 class="text-[#4f8] text-center">{ title }</h2>
+        <p class="text-[#ddd] ">
+            { description }
+        </p>
+    </div>
+</div>
