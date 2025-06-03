@@ -12,7 +12,7 @@ const { title,description,image,alt,link } = Astro.props as Props;
 
 <div class="inline-flex flex-col items-center justify-start rounded-lg shadow-md w-[clamp(19rem,100%,100%)] text-gray-950 mx-auto bg-gray-900 overflow-hidden">
     <div class="relative h-[10rem] overflow-hidden min-w-[100%]">
-        <a target="_blank" href={ link } class="outline-1 absolute top-1/2 left-1/2 transform-[translate(-50%,-40%)] w-[clamp(15rem,100%,100%)] hover:opacity-[0.9] hover:w-[calc(100%_+_2rem)] hover:-rotate-1 transition-all">
+        <a target="_blank" href={ link } class="outline-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-[clamp(15rem,100%,100%)] hover:opacity-[0.9] hover:w-[calc(100%_+_2rem)] hover:-rotate-1 transition-all">
             <img src={ image } alt={ alt } class="w-full">
         </a>
     </div>

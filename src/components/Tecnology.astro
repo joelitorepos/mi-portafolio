@@ -8,7 +8,7 @@ const { image, alt } = Astro.props as Props;
 ---
 
 <div class="relative w-full h-full bg-gray-900 border-1 border-[#ddd]">
-    <div class="absolute top-1/2 left-1/2 transform-[translate(-50%,-50%)] w-[85%]">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%]">
         <img src={ image } alt={ alt } class="object-contain" />
     </div>
 </div>
