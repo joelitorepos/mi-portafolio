@@ -11,8 +11,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install, build, and upload your site
         uses: withastro/action@v4
+        with:
+          path: .
+          # Asegúrate de que se use la base correcta:
+          site: ./dist
+          node-version: 20
+
+      - name: Add .nojekyll file
+        run: echo "" > dist/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./dist
 
   deploy:
     needs: build
