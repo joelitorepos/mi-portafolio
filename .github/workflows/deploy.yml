@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
 
       - name: Install, build, and upload your site
         uses: withastro/action@v4
@@ -24,7 +24,7 @@ jobs:
         run: echo "" > dist/.nojekyll
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
