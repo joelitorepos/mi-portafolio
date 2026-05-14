@@ -5,26 +5,29 @@ on:
     branches:
       - main
 
+# Sugerencia: Evita el aviso de depreciación de Node
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/upload-artifact@v4
+        uses: actions/checkout@v4 # <--- CORREGIDO: Antes decía upload-artifact
 
       - name: Install, build, and upload your site
         uses: withastro/action@v4
         with:
           path: .
-          # Asegúrate de que se use la base correcta:
           site: ./dist
-          node-version: 20
+          node-version: 22 # <--- ACTUALIZADO: Para evitar avisos de versión antigua
 
       - name: Add .nojekyll file
         run: echo "" > dist/.nojekyll
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v4 # Este es el correcto para Pages
         with:
           path: ./dist
 
