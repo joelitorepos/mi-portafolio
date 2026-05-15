@@ -7,8 +7,10 @@ import "../styles/global.css";
 import FeaturedProject from "../components/FeaturedProject.astro";
 import petClinicPreview from "../images/pet-clinic-preview.png";
 import TechChip from "../components/TechChip.astro";
+import Header from "../components/Header.astro";
 ---
 <Layout>
+    <Header />
     <h2 class="text-center mt-[1rem] text-[2rem]">Proyectos</h2>
     <!-- PROYECTO PRINCIPAL -->
     <div class="p-[1rem]">
@@ -36,7 +38,7 @@ import TechChip from "../components/TechChip.astro";
             ]}
         />
     </div>
-    <section class="grid grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] p-[1rem]">     
+    <section class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] p-[1rem]">     
         <ProjectCard
         title="Gestor de URLs y grupos de pestañas"
         description="una extension para chrome que permite gestionar urls y grupos de pestañas, una manera de organizar tus pestañas y urls"
