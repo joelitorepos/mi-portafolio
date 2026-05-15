@@ -4,70 +4,50 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Footer from "../components/Footer.astro";
 import Tecnology from "../components/Tecnology.astro";
 import "../styles/global.css";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import petClinicPreview from "../images/pet-clinic-preview.png";
+import TechChip from "../components/TechChip.astro";
 ---
 <Layout>
     <h2 class="text-center mt-[1rem] text-[2rem]">Proyectos</h2>
-    <section class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-[1rem] p-[1rem]">     
+    <!-- PROYECTO PRINCIPAL -->
+    <div class="p-[1rem]">
+        <FeaturedProject
+            title="Pet Clinic Manager"
+            description="Sistema de gestión para clínicas veterinarias. Permite administrar pacientes, expedientes, imágenes y seguimiento de acciones — todo en una base de datos segura con validaciones estrictas."
+            image={petClinicPreview.src}
+            imageAlt="Captura de pantalla de Pet Clinic Manager"
+            siteUrl="https://pet-clinic-manager.com"
+            repoUrl="https://github.com/joelitorepos/pet-clinic-manager"
+            domain="pet-clinic-manager.com"
+            badge="En producción"
+            stack={["React", "TypeScript", "Express.js", "MongoDB", "Mongoose", "Docker"]}
+            bullets={[
+                { icon: "ti-database",        text: "CRUD completo con múltiples tipos de registro" },
+                { icon: "ti-photo",            text: "Almacenamiento de imágenes de pacientes" },
+                { icon: "ti-table-export",     text: "Exportación de datos a Excel" },
+                { icon: "ti-clipboard-list",   text: "Auditoría de acciones (plan pago)" },
+            ]}
+            infra={[
+                { label: "Frontend — Cloudflare Pages",   sub: "React + TypeScript" },
+                { label: "Backend — Oracle Cloud VM",     sub: "Express.js · Docker · Cloudflare Tunnel" },
+                { label: "Base de datos — MongoDB Atlas", sub: "M0 · Mongoose ODM" },
+                { label: "Dominio propio",                sub: "pet-clinic-manager.com" },
+            ]}
+        />
+    </div>
+    <section class="grid grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] p-[1rem]">     
         <ProjectCard
-        title="Chat en tiempo real (Prototipo)"
-        description="un prototipo de una aplicacion de chat en tiempo real, una manera de visualizar como quedaria un chat en tiempo real que puede mejorarse para crear uno real donde se puedan mandar y recibir mensajes"
-        image="/mi-portafolio/images/PROJECT-CHAT.jpg"
-        alt="chat"
-        link="https://joelitorepos.github.io/Chat-realtime/"
+        title="Gestor de URLs y grupos de pestañas"
+        description="una extension para chrome que permite gestionar urls y grupos de pestañas, una manera de organizar tus pestañas y urls"
+        image="/mi-portafolio/images/extension.png"
+        alt="extension"
+        link="https://chromewebstore.google.com/detail/gestor-de-urls-grupos-de/kcgnaddmfibpmkfghbikkgngbnoapioi"
         >
-        <div class="text-[#ddd]">
-            <span>Tecnologias:</span>
-            <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/html.webp"
-                        alt="html icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/css-icon.webp"
-                        alt="css icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/js.png"
-                        alt="javascript icon"
-                />
-                </div>
-            </div>
-        </div>
-        </ProjectCard>
-        <ProjectCard
-            title="Programa de calculo"
-            description="Programa para automatizacion de un calculo relacionado con ventas, fue peticion de alguien para ayudarlo con la automatizacion de una tarea repetitiva"
-            image="/mi-portafolio/images/PROJECT-PROYECCION.jpg"
-            alt="peliculas"
-            link="https://joelitorepos.github.io/proyeccion/"
-        >
-        <div class="text-[#ddd]">
-            <span>Tecnologias:</span>
-            <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/html.webp"
-                        alt="html icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/css-icon.webp"
-                        alt="css icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/js.png"
-                        alt="javascript icon"
-                />
-                </div>
-            </div>
+        <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
+            <TechChip variant="highlight" size="md">HTML</TechChip>
+            <TechChip variant="highlight" size="md">CSS</TechChip>
+            <TechChip variant="highlight" size="md">TypeScript</TechChip>
         </div>
         </ProjectCard>
         <ProjectCard
@@ -77,22 +57,9 @@ import "../styles/global.css";
             alt="curso-API"
             link="https://joelitorepos.github.io/curso-para-API/"
         >
-        <div class="text-[#ddd]">
-            <span>Tecnologias:</span>
-            <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/html.webp"
-                        alt="html icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/css-icon.webp"
-                        alt="css icon"
-                    />
-                </div>
-            </div>
+        <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
+            <TechChip variant="highlight" size="md">HTML</TechChip>
+            <TechChip variant="highlight" size="md">CSS</TechChip>
         </div>
         </ProjectCard>
         <ProjectCard
@@ -102,28 +69,10 @@ import "../styles/global.css";
             alt="portafolio"
             link="https://joelitorepos.github.io/portafolio/"
         >
-        <div class="text-[#ddd]">
-            <span>Tecnologias:</span>
-            <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/html.webp"
-                        alt="html icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/css-icon.webp"
-                        alt="css icon"
-                    />
-                </div>
-                <div class="h-[2rem] w-[2rem]">
-                    <Tecnology
-                        image="/mi-portafolio/images/js.png"
-                        alt="javascript icon"
-                />
-                </div>
-            </div>
+        <div class="inline-flex w-fit h-fit justify-start gap-[1rem] p-[1rem]">
+            <TechChip variant="highlight" size="md">HTML</TechChip>
+            <TechChip variant="highlight" size="md">CSS</TechChip>
+            <TechChip variant="highlight" size="md">JavaScript</TechChip>
         </div>
         </ProjectCard>
     </section>
@@ -177,6 +126,12 @@ import "../styles/global.css";
                 alt="nodejs icon"
         />
         </div>
+        <div class="h-[10rem] w-[9rem] m-auto">
+            <Tecnology
+                image="/mi-portafolio/images/mongodb.png"
+                alt="mongodb icon"
+        />
+        </div>
     </section>
     <h2 class="text-center text-[2rem]">Herramientas</h2>
     <section class="w-full h-fit grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] justify-center gap-[1rem] p-[1rem]">
@@ -202,6 +157,12 @@ import "../styles/global.css";
             <Tecnology
                 image="/mi-portafolio/images/vscode-icon.png"
                 alt="visual studio code icon"
+        />
+        </div>
+        <div class="h-[10rem] w-[9rem] m-auto">
+            <Tecnology
+                image="/mi-portafolio/images/cloudflare.png"
+                alt="cloudflare icon"
         />
         </div>
     </section>

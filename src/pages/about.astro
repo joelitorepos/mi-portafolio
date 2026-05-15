@@ -1,16 +1,109 @@
 ---
 import Layout from "../Layouts/Layout.astro";
 import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
+
+const stack = [
+    {
+        category: "Frontend",
+        items: [
+            { tech: "React", reason: "Componentes reutilizables y estado reactivo. Base del frontend de Pet Clinic Manager." },
+            { tech: "TypeScript", reason: "Tipado estático en todo el stack — reduce errores y mejora la mantenibilidad." },
+            { tech: "Tailwind CSS", reason: "Acelera el desarrollo de UI. Al ser muy popular, las soluciones son fáciles de encontrar." },
+            { tech: "Astro", reason: "Para sitios con contenido estático o semi-estático. Este portafolio está hecho con Astro." },
+        ],
+    },
+    {
+        category: "Backend",
+        items: [
+            { tech: "Node.js", reason: "Mismo ecosistema que el frontend — un solo lenguaje en todo el stack." },
+            { tech: "Express.js", reason: "API REST del backend de Pet Clinic Manager, desplegada en Oracle Cloud." },
+            { tech: "MongoDB", reason: "Esquema flexible, ideal cuando la estructura de datos puede evolucionar." },
+            { tech: "Mongoose", reason: "ODM para MongoDB — validaciones, modelos y queries más expresivos." },
+        ],
+    },
+    {
+        category: "Infraestructura",
+        items: [
+            { tech: "Docker", reason: "El backend de Pet Clinic Manager corre dockerizado en una VM de Oracle Cloud." },
+            { tech: "Cloudflare", reason: "Pages para el frontend, Tunnel para exponer el backend de forma segura." },
+            { tech: "Linux", reason: "Sistema operativo principal — administración de servidor y entorno de desarrollo." },
+            { tech: "Git / GitHub", reason: "Control de versiones en todos los proyectos. GitHub Pages para despliegues estáticos." },
+        ],
+    },
+];
 ---
+
 <Layout>
-    <div>
-        <h2 class="text-center text-[#5ccfe6] block w-fit m-auto text-[2rem]">Experiencia</h2>
-        <p class="block max-w-prose m-auto my-[1rem] text-slate-300 leading-loose tracking-normal bg-gray-900 p-[1rem] rounded-xl">He trabajado como practicante en el área de IT del Tribunal Supremo Electoral (TSE) y he adquirido conocimientos de manera autodidacta en el área de desarrollo web. Aunque soy un desarrollador web junior, no he tenido la oportunidad de trabajar en una empresa donde pueda aplicar mis conocimientos de desarrollo web.</p>
-        <h2 class="text-center text-[#5ccfe6] block w-fit m-auto text-[2rem]">Habilidades</h2>
-        <p class="block max-w-prose m-auto my-[1rem] text-slate-300 leading-loose tracking-normal bg-gray-900 p-[1rem] rounded-xl">Tengo un conocimiento muy sólido en las bases del desarrollo web: HTML, CSS y JavaScript, lo que me permite crear sitios web estáticos con facilidad y buen diseño. Sé usar Node.js con Express para crear un backend, y puedo trabajar con React, TypeScript y frameworks como Tailwind y Astro. En mi universidad he aprendido C++, lo que me ha permitido manejar programación orientada a objetos tanto en C++ como en JavaScript. Esta página está hecha con Astro, Tailwind y TypeScript.</p>
-        <h2 class="text-center text-[#5ccfe6] block w-fit m-auto text-[2rem]">Herramientas</h2>
-        <p class="block max-w-prose m-auto my-[1rem] text-slate-300 leading-loose tracking-normal bg-gray-900 p-[1rem] rounded-xl">Mi sistema operativo es Linux Mint XFCE. Uso GIT para el control de versiones de mis proyectos y GitHub para alojarlos y desplegar páginas estáticas. Tengo varios IDEs para escribir código, como Visual Studio Code, Cursor y Windsurf, siendo Visual Studio Code mi favorito. También tengo conocimientos básicos de Docker, pero al no dominarlo completamente, no lo incluyo como una herramienta que domine.</p>
-    </div>
-    <Footer></Footer>
+    <Header />
+
+    <main class="flex flex-col min-h-[80dvh] max-w-[1100px] mx-auto px-6 py-12 gap-16">
+
+        <!-- QUIÉN SOY -->
+        <section class="grid md:grid-cols-2 gap-10 items-start">
+            <div>
+                <p class="text-[#4de] uppercase tracking-widest text-sm mb-3">Sobre mí</p>
+                <h1 class="text-3xl font-semibold text-white mb-6 leading-snug">
+                    Desarrollador Full-Stack<br />buscando su primer rol formal
+                </h1>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Soy estudiante de <span class="text-white font-medium">Ingeniería en Sistemas de Información y Ciencias de la Computación</span> en la UMG, cursando el 5.° ciclo (tercer año). Vivo en Mixco, Guatemala.
+                </p>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Me interesé en la carrera de sistemas y empecé a estudiar desarrollo web de forma autodidacta — desde HTML y CSS hasta dockerizar un backend en producción. Cada proyecto me llevó a aprender la siguiente herramienta que lo requería.
+                </p>
+                <p class="text-slate-300 leading-relaxed">
+                    Busco mi primer empleo formal como <span class="text-white font-medium">practicante, trainee o semi-junior</span>. Prefiero trabajo remoto o en zona cercana a Mixco, zona 11.
+                </p>
+            </div>
+
+            <!-- DATOS RÁPIDOS -->
+            <div class="flex flex-col gap-3">
+                {[
+                    { label: "Ubicación",    value: "Mixco, Guatemala — zona 11" },
+                    { label: "Universidad",  value: "UMG · 5.° ciclo (3.er año)" },
+                    { label: "Carrera",      value: "Ing. en Sistemas de Información y Ciencias de la Computación" },
+                    { label: "Buscando",     value: "Practicante · Trainee · Semi-junior" },
+                    { label: "Modalidad",    value: "Remoto o presencial cerca de zona 11" },
+                    { label: "Experiencia previa", value: "Practicante de IT — Tribunal Supremo Electoral (TSE)" },
+                ].map(({ label, value }) => (
+                    <div class="flex gap-4 items-start bg-[#161b22] border border-[#21262d] rounded-lg px-4 py-3">
+                        <span class="text-[#4de] text-sm font-medium min-w-[130px] shrink-0">{label}</span>
+                        <span class="text-slate-300 text-sm">{value}</span>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- DIVIDER -->
+        <div class="h-px bg-[#ffffff15]"></div>
+
+        <!-- TABLA DE STACK -->
+        <section>
+            <p class="text-[#4de] uppercase tracking-widest text-sm mb-2">Stack tecnológico</p>
+            <h2 class="text-2xl font-semibold text-white mb-8">Qué uso y por qué</h2>
+
+            <div class="flex flex-col gap-10">
+                {stack.map(({ category, items }) => (
+                    <div>
+                        <h3 class="text-[#4de] text-sm font-medium uppercase tracking-widest mb-4 pb-2 border-b border-[#21262d]">
+                            {category}
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            {items.map(({ tech, reason }) => (
+                                <div class="flex gap-4 items-start bg-[#161b22] border border-[#21262d] rounded-lg px-4 py-3 hover:border-[#4de3]/30 transition-colors">
+                                    <span class="text-white font-medium text-sm min-w-[110px] shrink-0 pt-0.5">{tech}</span>
+                                    <span class="text-slate-400 text-sm leading-relaxed">{reason}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+    </main>
+
+    <Footer />
 </Layout>
