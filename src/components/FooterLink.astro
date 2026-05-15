@@ -1,0 +1,28 @@
+---
+// src/components/FooterLink.astro
+interface Props {
+  href: string;
+  label: string;
+  isActive?: boolean;
+}
+
+const { href, label, isActive = false } = Astro.props;
+---
+
+<li class="flex-1 group">
+  <a 
+    href={href}
+    class={`relative flex h-full items-center justify-center text-lg font-medium transition-all duration-300
+      ${isActive 
+        ? 'text-[#48e] border-b-4 border-[#48e]' 
+        : 'text-white/90 hover:text-[#48e]'}
+    `}
+  >
+    <span class="relative z-10 transition-all duration-300 group-hover:drop-shadow-[0_0_12px_#48e]">
+      {label}
+    </span>
+    
+    <!-- Efecto neon sutil de fondo -->
+    <div class="absolute inset-0 bg-[#48e3]/0 group-hover:bg-[#48e3]/10 transition-colors duration-300 rounded-t-lg"></div>
+  </a>
+</li>

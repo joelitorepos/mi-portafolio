@@ -1,0 +1,33 @@
+---
+// src/components/TechChip.astro
+interface Props {
+  variant?: 'highlight' | 'default';
+  size?: 'sm' | 'md';
+}
+
+const { 
+  variant = 'default', 
+  size = 'sm' 
+} = Astro.props;
+---
+
+<span 
+  class:list={[
+    'inline-flex items-center font-medium rounded-full border transition-all duration-200 px-[20px]',
+    
+    size === 'sm' && 'text-[18px] px-3 py-1',
+    size === 'md' && 'text-xs py-1.5',
+
+    variant === 'highlight' && [
+      'bg-[#0d2233] text-[#5ccfe6] border-[#5ccfe6]/50',
+      'hover:bg-[#5ccfe6]/10 hover:border-[#5ccfe6] hover:text-white'
+    ],
+
+    variant === 'default' && [
+      'bg-[#161b22] text-[#8b949e] border-[#30363d]',
+      'hover:bg-[#21262d] hover:text-[#c9d1d9] hover:border-[#5ccfe6]/30'
+    ]
+  ]}
+>
+  <slot />
+</span>

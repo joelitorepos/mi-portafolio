@@ -1,0 +1,45 @@
+---
+// Header.astro
+---
+
+<header class="sticky top-0 z-10 flex min-h-[10dvh] w-full items-center justify-center bg-[#191924] px-4 md:justify-between md:px-12">
+  <div class="hidden items-center md:grid">
+    <span class="text-white text-sm lg:text-base">
+      Victor Argueta <br><span class="text-[#4de]">Desarrollador Full-Stack</span>
+    </span>
+  </div>
+
+  <nav class="w-full max-w-[700px] md:w-[40%]">
+    <ul class="flex w-full justify-evenly items-center list-none p-0 m-0">
+      <li class="grid min-h-[60px] min-w-[60px] place-items-center">
+        <a href="https://www.linkedin.com/in/victor-abdias-joel-argueta-gonzalez-295635356" target="_blank">
+          <img src="/mi-portafolio/images/LinkedIn_icon.png" alt="LinkedIn" class="max-h-[45px] object-contain" />
+        </a>
+      </li>
+      <li class="grid min-h-[60px] min-w-[60px] place-items-center">
+        <a href="mailto:joelabdias2004@gmail.com">
+          <img src="/mi-portafolio/images/gmail-icon.webp" alt="Gmail" class="h-[70px] w-[50px] rounded-[6px] object-contain" />
+        </a>
+      </li>
+      <li class="grid min-h-[60px] min-w-[60px] place-items-center">
+        <a href="https://github.com/joelitorepos" target="_blank">
+          <img src="/mi-portafolio/images/github-icon.webp" alt="GitHub" class="max-h-[45px] rounded-[7px] object-contain" />
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  /* Animación de scroll del original */
+  header {
+    animation: adaptar-nav both;
+    animation-timeline: scroll();
+    animation-range: 20px 150px;
+  }
+
+  @keyframes adaptar-nav {
+    from { background-color: #191924; }
+    to { background-color: #18233f66; } /* Color mas-oscuro del original */
+  }
+</style>

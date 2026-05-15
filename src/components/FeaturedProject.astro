@@ -1,0 +1,468 @@
+---
+// components/FeaturedProject.astro
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    imageAlt?: string;
+    siteUrl?: string;
+    repoUrl?: string;
+    domain?: string;
+    badge?: string;
+    stack?: string[];
+    bullets?: { icon: string; text: string }[];
+    infra?: { label: string; sub: string }[];
+}
+
+const {
+    title,
+    description,
+    image,
+    imageAlt = title,
+    siteUrl = '#',
+    repoUrl = '#',
+    domain = '',
+    badge = 'En producción',
+    stack = [],
+    bullets = [],
+    infra = [],
+} = Astro.props;
+
+const modalId = `modal-featured-${title.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+<!-- ─── TARJETA PRINCIPAL ─────────────────────────── -->
+<div class="feat-card">
+
+    <!-- Imagen grande → link al sitio -->
+    <a href={siteUrl} target="_blank" rel="noopener noreferrer" class="feat-img-wrap" aria-label={`Ir a ${title}`}>
+        <img src={image} alt={imageAlt} class="feat-img" />
+        <div class="feat-img-overlay">
+            <span class="feat-img-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Visitar sitio
+            </span>
+        </div>
+    </a>
+
+    <!-- Info lateral derecha -->
+    <div class="feat-info">
+        <div class="feat-info-top">
+            {badge && <span class="feat-badge">{badge}</span>}
+            <h2 class="feat-title">{title}</h2>
+            {domain && <span class="feat-domain">{domain}</span>}
+            <p class="feat-desc">{description}</p>
+
+            {stack.length > 0 && (
+                <div class="feat-stack">
+                    {stack.map(t => <span class="stag">{t}</span>)}
+                </div>
+            )}
+        </div>
+
+        <!-- Botón que abre el modal -->
+        <button
+            class="feat-btn modal-trigger"
+            data-modal-target={modalId}
+        >
+            Más información
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+    </div>
+</div>
+
+<!-- ─── MODAL ─────────────────────────────────────── -->
+<div id={modalId} class="modal hidden" role="dialog" aria-modal="true" aria-label={`Detalles de ${title}`}>
+    <div class="modal-content">
+
+        <!-- Header -->
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title">{title}</h3>
+                {domain && <span class="modal-domain">{domain}</span>}
+            </div>
+            <button class="modal-close" aria-label="Cerrar">&times;</button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+            <div class="modal-grid">
+
+                <!-- Columna izquierda: descripción + bullets + stack + links -->
+                <div class="modal-left">
+                    <p class="modal-desc">{description}</p>
+
+                    {bullets.length > 0 && (
+                        <ul class="modal-bullets">
+                            {bullets.map(b => (
+                                <li class="modal-bullet">
+                                    <i class={`ti ${b.icon}`} aria-hidden="true"></i>
+                                    <span>{b.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {stack.length > 0 && (
+                        <div class="modal-stack">
+                            {stack.map(t => <span class="stag">{t}</span>)}
+                        </div>
+                    )}
+
+                    <div class="modal-links">
+                        {siteUrl && siteUrl !== '#' && (
+                            <a href={siteUrl} target="_blank" rel="noopener" class="mlink">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                {domain || 'Ver sitio'}
+                            </a>
+                        )}
+                        {repoUrl && repoUrl !== '#' && (
+                            <a href={repoUrl} target="_blank" rel="noopener" class="mlink">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                                Repositorio
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                <!-- Columna derecha: infraestructura -->
+                {infra.length > 0 && (
+                    <div class="modal-right">
+                        <div class="infra-label">Infraestructura</div>
+                        <div class="infra-items">
+                            {infra.map(item => (
+                                <div class="infra-row">
+                                    <div class="infra-dot"></div>
+                                    <div>
+                                        <div class="infra-text">{item.label}</div>
+                                        <div class="infra-sub">{item.sub}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <!-- Slot para contenido extra (screenshots, video, etc.) -->
+            <slot />
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <button class="modal-close modal-close-btn">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* ── TARJETA ─────────────────────────────────────── */
+.feat-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: #161b22;
+    border: 0.5px solid #30363d;
+    border-left: 3px solid #5ccfe6;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .feat-card { grid-template-columns: 1fr; }
+}
+
+/* Imagen */
+.feat-img-wrap {
+    display: block;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #0d1117;
+}
+.feat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+.feat-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 17, 23, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+.feat-img-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #5ccfe6;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(13,17,23,0.8);
+    border: 0.5px solid #5ccfe666;
+    border-radius: 20px;
+    padding: 6px 14px;
+}
+.feat-img-wrap:hover .feat-img { transform: scale(1.03); filter: brightness(0.8); }
+.feat-img-wrap:hover .feat-img-overlay { opacity: 1; }
+
+/* Info derecha */
+.feat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    justify-content: space-between;
+}
+.feat-info-top { display: flex; flex-direction: column; gap: 8px; }
+
+.feat-badge {
+    display: inline-flex;
+    font-size: 11px;
+    background: #0d2233;
+    color: #5ccfe6;
+    border: 0.5px solid #5ccfe655;
+    padding: 2px 10px;
+    border-radius: 12px;
+    width: fit-content;
+}
+.feat-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e6edf3;
+    line-height: 1.2;
+}
+.feat-domain {
+    font-size: 12px;
+    color: #5ccfe688;
+    font-family: monospace;
+}
+.feat-desc {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.65;
+}
+.feat-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.stag {
+    font-size: 11px;
+    color: #8b949e;
+    background: #0d1117;
+    border: 0.5px solid #21262d;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+/* Botón abrir modal */
+.feat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #5ccfe6;
+    color: #0d1117;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+    transition: background 0.2s, transform 0.15s;
+}
+.feat-btn:hover { background: #7de6f5; transform: translateY(-1px); }
+
+/* ── MODAL ─────────────────────────────────────── */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(1, 4, 9, 0.85);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+}
+.modal.hidden { display: none; }
+
+.modal-content {
+    background: #161b22;
+    border: 0.5px solid #30363d;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 860px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 0.5px solid #30363d;
+    flex-shrink: 0;
+}
+.modal-title { font-size: 1.2rem; font-weight: 600; color: #e6edf3; }
+.modal-domain { font-size: 11px; color: #5ccfe688; font-family: monospace; }
+.modal-close {
+    background: none;
+    border: none;
+    color: #8b949e;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+.modal-close:hover { color: #e6edf3; }
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+@media (max-width: 640px) {
+    .modal-grid { grid-template-columns: 1fr; }
+}
+
+.modal-left { display: flex; flex-direction: column; gap: 1rem; }
+.modal-desc { font-size: 13px; color: #8b949e; line-height: 1.7; }
+
+.modal-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+}
+.modal-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: #8b949e;
+}
+.modal-bullet i { color: #5ccfe6; font-size: 14px; margin-top: 1px; flex-shrink: 0; }
+
+.modal-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.modal-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.mlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #5ccfe6;
+    text-decoration: none;
+    border: 0.5px solid #5ccfe644;
+    border-radius: 6px;
+    padding: 4px 10px;
+    transition: background 0.2s;
+}
+.mlink:hover { background: #5ccfe611; }
+
+/* Infraestructura (columna derecha del modal) */
+.modal-right { display: flex; flex-direction: column; gap: 10px; }
+.infra-label {
+    font-size: 10px;
+    color: #8b949e;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.infra-items { display: flex; flex-direction: column; gap: 10px; }
+.infra-row { display: flex; align-items: flex-start; gap: 10px; }
+.infra-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5ccfe6;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+.infra-text { font-size: 12px; color: #c9d1d9; }
+.infra-sub { font-size: 11px; color: #8b949e88; font-family: monospace; margin-top: 1px; }
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 0.5px solid #30363d;
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+.modal-close-btn {
+    background: transparent;
+    border: 0.5px solid #30363d;
+    color: #8b949e;
+    font-size: 13px;
+    padding: 7px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.modal-close-btn:hover { background: #21262d; color: #e6edf3; }
+</style>
+
+<script>
+    declare global {
+        interface Window { modalInitialized?: boolean; }
+    }
+
+    if (!window.modalInitialized) {
+        window.modalInitialized = true;
+
+        document.addEventListener('click', (e) => {
+            const target = e.target as HTMLElement | null;
+            if (!target) return;
+
+            // Abrir
+            const btn = target.closest<HTMLElement>('.modal-trigger');
+            if (btn) {
+                const modalId = btn.dataset.modalTarget;
+                const modal = modalId ? document.getElementById(modalId) : null;
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            // Cerrar (botón .modal-close o click en el backdrop)
+            if (
+                target.closest('.modal-close') ||
+                (target.classList.contains('modal') )
+            ) {
+                document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
+                document.body.style.overflow = '';
+            }
+        });
+    }
+</script>

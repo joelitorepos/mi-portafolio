@@ -1,30 +1,102 @@
 ---
-import Layout from "../Layouts/Layout.astro"
+// src/pages/index.astro
+import Layout from "../Layouts/Layout.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
+import Header from "../components/Header.astro";
+import TechChip from "../components/TechChip.astro";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import { base } from 'astro:config/client';
+import petClinicPreview from "../images/pet-clinic-preview.png";
 ---
 
 <Layout>
+    <Header />
     <main class="h-full">
-        <div class="flex min-h-[70dvh] flex-col md:flex-row">
-            <div class="flex-1 relative min-h-56">
-                <div class="rounded-full overflow-hidden md:w-[clamp(10rem,100%,21rem)] md:h-[21rem] grid place-content-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 md:t-translate-x-1/2 md:-translate-y-1/3">
+
+        <!-- HERO -->
+        <div class="flex min-h-[40dvh] flex-col md:flex-row max-w-[1500px]">
+            <div class="flex-1 relative min-h-56 min-w-[20rem]">
+                <div class="rounded-full overflow-hidden md:w-[clamp(10rem,100%,15rem)] md:h-[15rem] grid place-content-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 md:-translate-y-1/3">
                     <img src="/mi-portafolio/images/foto-perfil(pequeña).jpg" alt="foto-personal" class="object-contain w-[15rem] md:w-[40rem]" />
                 </div>
             </div>
-            <div class="flex-1 flex flex-col text-[1.5rem] md:pr-10">
-                <div class="flex-1 flex flex-col justify-center items-center md:justify-end md:items-center">
-                    <h1 class="w-fit text-[#5ccfe6]">SOBRE MI</h1>
-                    <p class="w-fit text-center text-slate-300">Victor Abdias Joel Argueta Gonzales</p>
-                </div>
-                <div class="flex-1 flex flex-col justify-center">
-                    <div class="flex justify-center items-center flex-col">
-                        <h2 class="text-center text-[#5ccfe6]">Desarrollador web frontend</h2>
-                        <p class="text-center text-slate-300">Desarrollador frontend especializado en crear experiencias web fluidas y accesibles</p>
-                    </div>
+            <div class="flex-3 flex flex-col text-[1.5rem] md:p-0 md:pt-20 md:pr-10 p-5">
+                <h1>Victor Argueta <br>
+                    <span class="text-[#4de]">Desarrollador Full-Stack &middot; Ingeniería en Sistemas</span>
+                </h1>
+                <p class="max-w-[900px]">
+                    Construyendo productos web completos con infraestructura real en producción — desde el frontend hasta el backend dockerizado en la nube.
+                </p>
+                <div class="flex gap-3 mt-4 pt-8">
+                    <a
+                        href="/mi-portafolio/cv-victor-argueta.pdf"
+                        download
+                        class="flex items-center gap-2 bg-[#5ccfe6] text-[#0d1117] font-semibold px-5 py-2.5 rounded-lg hover:bg-[#7de6f5] transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Descargar CV
+                    </a>
+                
+                    <a
+                        href="/mi-portafolio/projects"
+                        class="flex items-center gap-2 border border-[#30363d] text-[#8b949e] px-5 py-2.5 rounded-lg hover:bg-[#21262d] hover:text-[#e6edf3] transition-colors"
+                    >
+                        Ver proyectos
+                    </a>
                 </div>
             </div>
         </div>
+
+        <!-- TECH CHIPS -->
+        <div class="flex flex-wrap gap-2 p-10">
+            <TechChip variant="highlight">TypeScript</TechChip>
+            <TechChip variant="highlight">React</TechChip>
+            <TechChip variant="highlight">Node.js</TechChip>
+            <TechChip variant="highlight">Express.js</TechChip>
+            <TechChip variant="highlight">MongoDB</TechChip>
+            <TechChip variant="highlight">Docker</TechChip>
+            <TechChip>Astro</TechChip>
+            <TechChip>Tailwind</TechChip>
+            <TechChip>Git</TechChip>
+            <TechChip>GitHub</TechChip>
+            <TechChip>Linux</TechChip>
+            <TechChip>Cloudflare</TechChip>
+        </div>
+
+        <!-- DIVIDER + SECCIÓN -->
+        <div class="p-10 pt-0">
+            <div class="mx-auto my-10 h-[1px] w-full bg-[#fff2]"></div>
+            <p class="text-[1.1rem] text-[#fff5] uppercase tracking-widest mb-4">Proyecto destacado</p>
+
+            <!-- PROYECTO PRINCIPAL -->
+            <FeaturedProject
+                title="Pet Clinic Manager"
+                description="Sistema de gestión para clínicas veterinarias. Permite administrar pacientes, expedientes, imágenes y seguimiento de acciones — todo en una base de datos segura con validaciones estrictas."
+                image={petClinicPreview.src}
+                imageAlt="Captura de pantalla de Pet Clinic Manager"
+                siteUrl="https://pet-clinic-manager.com"
+                repoUrl="https://github.com/joelitorepos/pet-clinic-manager"
+                domain="pet-clinic-manager.com"
+                badge="En producción"
+                stack={["React", "TypeScript", "Express.js", "MongoDB", "Mongoose", "Docker"]}
+                bullets={[
+                    { icon: "ti-database",        text: "CRUD completo con múltiples tipos de registro" },
+                    { icon: "ti-photo",            text: "Almacenamiento de imágenes de pacientes" },
+                    { icon: "ti-table-export",     text: "Exportación de datos a Excel" },
+                    { icon: "ti-clipboard-list",   text: "Auditoría de acciones (plan pago)" },
+                ]}
+                infra={[
+                    { label: "Frontend — Cloudflare Pages",   sub: "React + TypeScript" },
+                    { label: "Backend — Oracle Cloud VM",     sub: "Express.js · Docker · Cloudflare Tunnel" },
+                    { label: "Base de datos — MongoDB Atlas", sub: "M0 · Mongoose ODM" },
+                    { label: "Dominio propio",                sub: "pet-clinic-manager.com" },
+                ]}
+            />
+        </div>
+
     </main>
-    <Footer></Footer>
+    <Footer />
 </Layout>

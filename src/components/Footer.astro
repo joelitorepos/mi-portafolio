@@ -1,26 +1,54 @@
-<footer class="h-[16dvh] bg-[#12122b] sticky top-[100%] w-full">
-    <nav class="h-full">
-        <ul class="flex h-full text-x1">
-            <li class="flex-1 cursor-pointer border-[#48e]  hover:border-b-6 transition-all delay-75 overflow-hidden relative">
-                <a class="text-center grid place-content-center h-[calc(100%_+_2rem)] w-[calc(100%_+_5rem)] hover:shadow-[inset_0_-40px_30px_#48e3,inset_0_-20px_24px_#48e1] transition-all delay-75 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" href="/mi-portafolio/">
-                    <div>Inicio</div>
-                </a>
-            </li>
-            <li class="flex-1 cursor-pointer border-[#48e] hover:border-b-6 transition-all delay-75 overflow-hidden relative">
-                <a class="text-center grid place-content-center h-[calc(100%_+_2rem)] w-[calc(100%_+_5rem)] hover:shadow-[inset_0_-40px_30px_#48e3,inset_0_-20px_24px_#48e1] transition-all delay-75 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" href="/mi-portafolio/projects">
-                    <div>Proyectos</div>
-                </a>
-            </li>
-            <li class="flex-1 cursor-pointer border-[#48e] hover:border-b-6 transition-all delay-75 overflow-hidden relative">
-                <a class="text-center grid place-content-center h-[calc(100%_+_2rem)] w-[calc(100%_+_5rem)] hover:shadow-[inset_0_-40px_30px_#48e3,inset_0_-20px_24px_#48e1] transition-all delay-75 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" href="/mi-portafolio/about">
-                    <div>Sobre mi</div>
-                </a>
-            </li>
-            <li class="flex-1 cursor-pointer border-[#48e] hover:border-b-6 transition-all delay-75 overflow-hidden relative">
-                <a class="text-center grid place-content-center h-[calc(100%_+_2rem)] w-[calc(100%_+_5rem)] hover:shadow-[inset_0_-40px_30px_#48e3,inset_0_-20px_24px_#48e1] transition-all delay-75 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" href="/mi-portafolio/contact">
-                    <div>Contacto</div>
-                </a>
-            </li>
-        </ul>
-    </nav>
-<footer/>
+---
+// Footer.astro
+import FooterLink from './FooterLink.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<footer class="h-[10dvh] bg-[#12122b] border-t border-[#48e3]/20 w-full mt-auto">
+  <nav class="h-full">
+    <ul class="flex h-full text-xl">
+      
+      <FooterLink 
+        href="/mi-portafolio/" 
+        label="Inicio" 
+        isActive={currentPath === '/mi-portafolio/' || currentPath === '/mi-portafolio'} 
+      />
+      
+      <FooterLink 
+        href="/mi-portafolio/projects" 
+        label="Proyectos" 
+        isActive={currentPath === '/mi-portafolio/projects'} 
+      />
+      
+      <FooterLink 
+        href="/mi-portafolio/about" 
+        label="Sobre mí" 
+        isActive={currentPath === '/mi-portafolio/about'} 
+      />
+      
+      <FooterLink 
+        href="/mi-portafolio/contact" 
+        label="Contacto" 
+        isActive={currentPath === '/mi-portafolio/contact'} 
+      />
+
+    </ul>
+  </nav>
+</footer>
+
+<style>
+  footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Efecto neon más pronunciado al hover */
+  footer a:hover span {
+    text-shadow: 
+      0 0 8px #48e3,
+      0 0 16px #48e3,
+      0 0 24px #48e3;
+  }
+</style>

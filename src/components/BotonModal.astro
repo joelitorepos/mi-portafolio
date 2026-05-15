@@ -1,0 +1,96 @@
+---
+// components/BotonModal.astro
+interface Props {
+    btnText?: string;
+    btnClass?: string;
+    modalTitle?: string;
+    size?: 'sm' | 'md' | 'lg';
+}
+
+const {
+    btnText = "Más información",
+    btnClass = "bg-[#5ccfe6] text-[#0d1117] hover:bg-[#7de6f5]",
+    modalTitle = "Detalles del Proyecto",
+    size = 'lg'
+} = Astro.props;
+---
+
+<button 
+    class={`modal-trigger px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-all ${btnClass}`}
+    data-modal-target="modal-${Astro.instanceId ?? Math.random().toString(36).slice(2)}"
+>
+    {btnText}
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7" />
+    </svg>
+</button>
+
+<!-- Modal -->
+<div id="modal-{Astro.instanceId ?? Math.random().toString(36).slice(2)}" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div class={`modal-content bg-[#161b22] border border-[#30363d] rounded-2xl w-full max-w-[${size === 'lg' ? '1100' : size === 'md' ? '800' : '600'}px] max-h-[92vh] overflow-hidden flex flex-col`}>
+        
+        <!-- Header del modal -->
+        <div class="flex items-center justify-between border-b border-[#30363d] px-6 py-4">
+            <h3 class="text-xl font-semibold text-[#e6edf3]">{modalTitle}</h3>
+            <button class="modal-close text-[#8b949e] hover:text-white text-3xl leading-none">&times;</button>
+        </div>
+
+        <!-- Contenido personalizable -->
+        <div class="modal-body p-6 overflow-auto flex-1">
+            <slot />
+        </div>
+
+        <!-- Footer opcional -->
+        <div class="border-t border-[#30363d] px-6 py-4 flex justify-end">
+            <button class="modal-close px-6 py-2.5 rounded-lg border border-[#30363d] hover:bg-[#21262d] transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Extiende Window para la propiedad custom
+    declare global {
+        interface Window {
+            modalInitialized?: boolean;
+        }
+    }
+
+    // Funcionalidad del modal (una sola vez)
+    if (!window.modalInitialized) {
+        window.modalInitialized = true;
+
+        document.addEventListener('click', (e) => {
+            const target = e.target as HTMLElement | null;
+            if (!target) return;
+
+            // Abrir modal
+            const btn = target.closest<HTMLElement>('.modal-trigger');
+            if (btn) {
+                const modalId = btn.dataset.modalTarget;
+                const modal = modalId ? document.getElementById(modalId) : null;
+                if (modal) modal.classList.remove('hidden');
+            }
+
+            // Cerrar modal
+            if (
+                target.closest('.modal-close') ||
+                (target.closest('.modal') && !target.closest('.modal-content'))
+            ) {
+                document.querySelectorAll('.modal').forEach(modal =>
+                    modal.classList.add('hidden')
+                );
+            }
+        });
+
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal =>
+                    modal.classList.add('hidden')
+                );
+            }
+        });
+    }
+</script>
